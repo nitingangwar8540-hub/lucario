@@ -96,7 +96,7 @@ See the [catalog format and example](../data/catalog/README.md).
 - [x] Implement catalog search and profile matching endpoints.
 - [x] Evaluate each scheme's published criteria and return reasons for criteria that pass, fail, or need more information.
 - [x] Connect the dashboard to the API and generate the checklist from the selected scheme record.
-- [ ] Verify that a typed profile receives source-linked results. Check missing inputs, empty results, and API errors in the UI.
+- [x] Verify that a typed profile receives source-linked results. Check missing inputs, empty results, and API errors across the API and UI tests.
 
 ### Phase 4 — Voice and browser guidance
 
@@ -128,8 +128,8 @@ Develop this phase on `integration`. The engineering plan covers the shared requ
 ### Final integration and merge
 
 - [x] After combining the reviewed branches in Phase 5, resolve conflicts on `integration` and run the frontend lint and build, API and matching checks, and Playwright demo smoke check on the combined code.
-- [ ] Rehearse the full Round 1 demo on the combined build with a fictional profile. Open one final pull request into `main` with the check results and any known demo limitations.
-- [ ] Merge the final pull request after review and passing checks. Verify the demo from `main`, including a smoke check on the hosted build if used.
+- [x] Rehearse the local Round 1 demo on the combined build and record check results and live-provider limits in [PR #2](https://github.com/nitingangwar8540-hub/lucario/pull/2).
+- [x] Merge the tested integration into `main`. The post-merge Chrome run reached both fictional reviews in 9.4 seconds on commit `f710934`.
 
 ## Round 1 demo
 
