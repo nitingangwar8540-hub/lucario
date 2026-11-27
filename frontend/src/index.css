@@ -1,0 +1,48 @@
+/* ── Tailwind directives ───────────────────────────────────── */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base overrides (ported from Stitch <style> @layer base) ── */
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    overscroll-behavior: none;
+  }
+
+  /* Prevent margin collapse on first/last children inside main */
+  main > :first-child {
+    margin-top: 0 !important;
+  }
+
+  main > :last-child {
+    margin-bottom: 0 !important;
+  }
+
+  /* Hide scrollbar (all browsers) */
+  * {
+    scrollbar-width: none;        /* Firefox */
+    -ms-overflow-style: none;     /* IE / Edge */
+  }
+  *::-webkit-scrollbar {
+    display: none;                /* Chrome / Safari */
+  }
+}
+
+/* ── Component-level utilities ─────────────────────────────── */
+@layer components {
+  /* Material Symbols utility (matches Stitch icon usage) */
+  .icon {
+    @apply material-symbols-outlined;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+
+  .icon-filled {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+}
