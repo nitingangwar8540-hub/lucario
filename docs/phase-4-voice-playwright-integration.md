@@ -31,11 +31,11 @@ Use ElevenLabs Scribe v3 for recorded requests and Eleven v3 for spoken playback
 
 - [x] Build the standalone Python adapter for transcription and MP3 playback and verify its requests with a mocked provider. [ElevenLabs handoff](phase-4-elevenlabs-handoff.md)
 - [x] Add fixture-based explanations in Kannada, Hindi, and English for an offline rehearsal. [Sample explanations](../data/integration/voice-explanations.example.json)
-- [ ] Add language selection, an explicit record/stop control, and an editable transcript. Send the confirmed text through the shared request path.
-- [ ] Keep provider credentials on the backend. Validate the supported audio type and size and return understandable errors for provider failures and denied microphone access.
-- [ ] Have Gemini interpret the request and describe the rule engine's results using the selected language. Preserve the scheme ID, dates, and rule outcomes from the API, including manual review and missing inputs.
-- [ ] Display the explanation as text and play the same explanation through ElevenLabs. Keep typed input available during transcription errors and visible text available during speech playback errors.
-- [ ] Test an end-to-end Kannada request and verify Hindi and English explanations against the same structured result.
+- [x] Add language selection, an explicit record/stop control, and an editable transcript. Send the confirmed text through the shared request path.
+- [x] Keep provider credentials on the backend. Validate the supported audio type and size and return understandable errors for provider failures and denied microphone access.
+- [x] Have Gemini interpret the request and describe the rule engine's results using the selected language. Preserve the scheme ID, dates, and rule outcomes from the API, including manual review and missing inputs.
+- [x] Display the explanation as text and play the same explanation through ElevenLabs. Keep typed input available during transcription errors and visible text available during speech playback errors.
+- [x] Test an end-to-end Kannada request and verify Hindi and English explanations against the same structured result.
 
 **Done when** · A Kannada voice request and its typed equivalent return the same scheme IDs and statuses. The user can correct the transcript before matching and finish the flow with text if a voice service fails.
 
@@ -49,7 +49,7 @@ Use ElevenLabs Scribe v3 for recorded requests and Eleven v3 for spoken playback
 - [x] Resolve supported CSSS and PM YASASVI catalog IDs to exact public source URLs. Require HTTPS on the NSP host and fall back on redirects.
 - [x] Implement public navigation with timeouts and a fallback that retains the source link and checklist.
 - [x] Populate fictional values and document placeholders in a separate offline demo form using labeled controls. Stop at the review screen and close both browser contexts.
-- [ ] Rehearse public navigation and the fallback from the integrated dashboard.
+- [x] Rehearse public navigation and the fallback from the integrated dashboard.
 
 [Playwright handoff and demo commands](phase-4-playwright-handoff.md)
 
@@ -63,14 +63,16 @@ Use ElevenLabs Scribe v3 for recorded requests and Eleven v3 for spoken playback
 
 **Stack** · React, FastAPI, the verified catalog, Gemini, ElevenLabs, and Playwright.
 
-- [ ] Connect the voice and browser flows to the real Phase 3 matcher and dashboard.
-- [ ] Recheck scheme dates before rehearsal and choose two records with usable checklists. Make historical or example results clear in the demo.
-- [ ] Rehearse Kannada voice → editable transcript → two potential matches → source and checklist → public page → local form review.
-- [ ] Exercise typed fallback, denied microphone, transcription or playback failure, missing profile inputs, and portal timeout. Confirm the user can still reach the relevant source or checklist.
-- [ ] Run the frontend lint and build, the API checks, and the Playwright smoke test. Record the commands and results for demo sign-off.
+- [x] Connect the voice and browser flows to the real Phase 3 matcher and dashboard.
+- [x] Recheck scheme dates before rehearsal and choose two records with usable checklists. Make historical or example results clear in the demo.
+- [x] Rehearse simulated Kannada voice → editable transcript → two potential matches → source and checklist → public page → local form review.
+- [x] Exercise typed fallback, denied microphone, transcription or playback failure, missing profile inputs, and portal timeout. Confirm the user can still reach the relevant source or checklist.
+- [x] Run the frontend lint and build, the API checks, and the Playwright smoke test. Record the commands and results for demo sign-off.
 
 **Done when** · The team can rehearse the full path and the fallbacks, confirm accurate eligibility wording in the UI and spoken output, and verify zero final submissions. [Phase 2 MVP limitations](phase-2-scholarship-catalog.md#mvp-limitations)
 
 **What you learn.** An integration check follows the same record through each component. That catches problems that individual tests miss, such as voice describing one scheme while the browser opens another.
 
 See the [Phase 5 checklist](mvp.md#phase-5--integration-readiness-and-demo-sign-off) for the combined build and release checks.
+
+- [ ] Complete the eligible live-provider rehearsal. See the [Phase 5 runbook](phase-5-demo.md) for the scope of local verification.

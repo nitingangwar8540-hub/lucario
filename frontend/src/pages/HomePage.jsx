@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import GlassCard from '../components/GlassCard'
 import Header from '../components/layout/Header'
-import { domiciles, portals, scholarships, studyLevels } from '../data/scholarships'
+import { domiciles, portals, studyLevels } from '../data/scholarships'
+import { api } from '../data/api'
 
 const process = [
   { icon: 'person', title: 'Add your profile', description: 'Enter your study level, domicile, previous score and annual family income.' },
@@ -38,7 +39,7 @@ function HeroSection() {
           </label>
           <button className="button-primary h-12" type="submit">Find my scholarships</button>
         </form>
-        <a className="mt-6 inline-block text-sm font-semibold text-secondary underline underline-offset-4" href="#scholarship-directory">Explore the sample directory</a>
+        <a className="mt-6 inline-block text-sm font-semibold text-secondary underline underline-offset-4" href="#scholarship-directory">Explore the scholarship directory</a>
       </div>
     </section>
   )
@@ -46,13 +47,25 @@ function HeroSection() {
 
 function ScholarshipDirectory() {
   const [filter, setFilter] = useState('all')
+  const [scholarships, setScholarships] = useState([])
+  const [message, setMessage] = useState('Loading catalog…')
+  useEffect(() => {
+    const controller = new AbortController()
+    api('scholarships', { signal: controller.signal }).then(r => r.json()).then(records => {
+      setScholarships(records.map(r => ({ ...r, title: r.name, portal: r.portal === 'nsp' ? 'NSP' : 'SSP',
+        description: (r.isHistorical ? 'Historical cycle · ' : '') + (r.applicationCycle || 'Cycle unknown') })))
+      setMessage(records.length ? '' : 'No catalog records available.')
+    }).catch(() => { if (!controller.signal.aborted) setMessage('Catalog unavailable. Check the local API and reload.') })
+    return () => controller.abort()
+  }, [])
   const visibleSchemes = scholarships.filter(scheme => filter === 'all' || scheme.portal === filter)
 
   return (
     <section id="scholarship-directory" className="glass-directory">
       <div className="page-width py-14 sm:py-20">
         <h2 className="section-title">Scholarship directory</h2>
-        <p className="mt-2 max-w-2xl text-on-surface-variant">Browse fictional examples from the demo. Use the official portals for current schemes and deadlines.</p>
+        <p className="mt-2 max-w-2xl text-on-surface-variant">Browse the verified catalog and check each scheme against your profile.</p>
+        {message && <p role="status">{message}</p>}
         <fieldset className="mt-5 flex flex-wrap gap-2">
           <legend className="sr-only">Filter directory by source</legend>
           {['all', ...Object.keys(portals)].map(portal => (
@@ -67,7 +80,7 @@ function ScholarshipDirectory() {
               <p className="text-sm font-semibold text-secondary">{portals[scheme.portal].name}</p>
               <h3 className="mt-3 font-headline-md text-headline-md text-primary">{scheme.title}</h3>
               <p className="mb-5 mt-2 grow leading-relaxed text-on-surface-variant">{scheme.description}</p>
-              <a href="#dashboard" className="self-start text-sm font-semibold text-secondary underline underline-offset-4">Check your profile <span className="sr-only">for {scheme.title}</span></a>
+              <a href={'#dashboard?scheme=' + encodeURIComponent(scheme.id)} className="self-start text-sm font-semibold text-secondary underline underline-offset-4">Check your profile <span className="sr-only">for {scheme.title}</span></a>
             </GlassCard>
           ))}
         </div>

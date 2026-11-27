@@ -74,7 +74,7 @@ See the [catalog format and example](../data/catalog/README.md).
 #### 2.3 — Hand off and test the fixture
 
 - [x] Share the fixture path and field definitions in the [catalog draft pull request](https://github.com/nitingangwar8540-hub/lucario/pull/1).
-- [ ] Check that the dashboard displays a source link and document checklist once the frontend is ready.
+- [x] Check that the dashboard displays a source link and document checklist once the frontend is ready.
 - [x] Verify the source and checklist data independently, and exercise eligibility rules with a fictional profile. Resolve any fixture field or type mismatches.
 
 **What you learn.** A handoff tests the format against how teammates actually use it. A case such as an income exactly at the published limit can reveal whether the rule needs an inclusive or exclusive comparison.
@@ -93,9 +93,9 @@ See the [catalog format and example](../data/catalog/README.md).
 
 **Stack requirements** · Python, FastAPI, a Python rules engine, the Phase 2 catalog, and the React dashboard.
 
-- [ ] Implement catalog search and profile matching endpoints.
-- [ ] Evaluate each scheme's published criteria and return reasons for criteria that pass, fail, or need more information.
-- [ ] Connect the dashboard to the API and generate the checklist from the selected scheme record.
+- [x] Implement catalog search and profile matching endpoints.
+- [x] Evaluate each scheme's published criteria and return reasons for criteria that pass, fail, or need more information.
+- [x] Connect the dashboard to the API and generate the checklist from the selected scheme record.
 - [ ] Verify that a typed profile receives source-linked results. Check missing inputs, empty results, and API errors in the UI.
 
 ### Phase 4 — Voice and browser guidance
@@ -116,17 +116,18 @@ Develop this phase on `integration`. The engineering plan covers the shared requ
 
 **Stack requirements** · React and FastAPI builds, Playwright, GitHub pull requests and checks, and fictional test profiles. Hosted delivery uses AWS Amplify for the frontend, ECS for the API and browser worker, S3 for scheme records, and DynamoDB for session and checklist state.
 
-- [ ] Combine the reviewed frontend, backend, catalog, and standalone voice and browser work on `integration`.
-- [ ] Complete the former Phase 4.4 work. Connect voice and browser guidance to the live matcher and dashboard, verify live ElevenLabs and Gemini behavior with the eligible team members, and rehearse the Kannada flow through application review.
-- [ ] Check Hindi and English explanations, typed fallback, denied microphone access, provider failures, missing profile inputs, and portal timeout. Verify that the source and checklist remain available as appropriate.
-- [ ] Test 10 fictional profiles, including matches, failed criteria, and missing information.
-- [ ] Confirm all recommendations link to official sources and measure the shortlist and checklist flow against the five-minute target.
-- [ ] Rehearse microphone and portal fallbacks and verify zero automatic submissions.
-- [ ] Verify the local demo environment. For hosted delivery, prepare the AWS resources and test the preview environment.
+- [x] Combine the reviewed frontend, backend, catalog, and standalone voice and browser work on `integration`.
+- [x] Connect voice and browser guidance to the matcher and dashboard and rehearse the Kannada flow using a simulated transcript.
+- [ ] Verify live ElevenLabs and Gemini behavior with eligible team members.
+- [x] Check Hindi and English explanations, typed fallback, denied microphone access, provider failures, missing profile inputs, and portal timeout. Verify that the source and checklist remain available as appropriate.
+- [x] Test 10 fictional profiles, including matches, failed criteria, and missing information.
+- [x] Confirm all recommendations link to official sources and measure the shortlist and checklist flow against the five-minute target.
+- [x] Rehearse microphone and portal fallbacks and verify zero automatic submissions.
+- [x] Verify the local demo environment. AWS preview verification applies to a hosted release.
 
 ### Final integration and merge
 
-- [ ] After combining the reviewed branches in Phase 5, resolve conflicts on `integration` and run the frontend lint and build, API and matching checks, and Playwright demo smoke check on the combined code.
+- [x] After combining the reviewed branches in Phase 5, resolve conflicts on `integration` and run the frontend lint and build, API and matching checks, and Playwright demo smoke check on the combined code.
 - [ ] Rehearse the full Round 1 demo on the combined build with a fictional profile. Open one final pull request into `main` with the check results and any known demo limitations.
 - [ ] Merge the final pull request after review and passing checks. Verify the demo from `main`, including a smoke check on the hosted build if used.
 
@@ -148,4 +149,4 @@ Use the curated catalog if a portal is unavailable. Show the last-checked date s
 
 ## Repository status
 
-The checkout contains a React/Vite landing-page scaffold. The student dashboard, FastAPI services, catalog, rules engine, voice integration, browser worker, and AWS deployment are planned prototype work. The hackathon architecture uses the stack from the wHACKiest 2026 submission deck. See the [frontend foundation and team workflow](architecture-workflow.md) for scaffold details and the earlier stack proposal.
+The integrated local prototype combines the dashboard, FastAPI matcher, catalog, voice adapters and browser worker. See the [Phase 5 demo runbook](phase-5-demo.md) for setup, verification results and outstanding live-provider checks.

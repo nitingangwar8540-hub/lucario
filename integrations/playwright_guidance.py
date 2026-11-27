@@ -51,8 +51,12 @@ async def open_public_source(page: Page, source_url: str) -> bool:
     return response is not None and response.ok
 
 
-async def run_guidance(browser: Browser, scheme_id: str, *, offline: bool = False) -> dict:
+async def run_guidance(browser: Browser, scheme_id: str, *, offline: bool = False, record: dict | None = None) -> dict:
     scheme = get_scheme(scheme_id)
+    if record is not None:
+        if record["id"] != scheme_id or record["officialUrl"] != scheme["officialUrl"]:
+            raise ValueError("Catalog source differs from the supported public page.")
+        scheme = record
     documents = scheme["requiredDocuments"]
     checklist = "Checklist unavailable" if documents is None else "\n".join(
         f'{item["name"]} ({item["condition"]})' if item["condition"] else item["name"]

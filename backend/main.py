@@ -6,6 +6,7 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
 from .catalog import CatalogUnavailable, load_catalog, search_catalog
+from .demo import demo_router
 from .matching import match_profile
 from .models import MatchRequest, MatchResult, Portal, Scholarship
 
@@ -65,6 +66,7 @@ def create_app(
         records = search_catalog(current_catalog(), request.q, request.portal)
         return match_profile(records, request.profile)
 
+    app.include_router(demo_router(current_catalog))
     return app
 
 
