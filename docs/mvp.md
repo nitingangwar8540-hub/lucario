@@ -26,6 +26,20 @@ Students must search across government portals, colleges, and private providers,
 4. **Matching.** A Python rules engine evaluates the supplied profile against the curated criteria. The API returns matches with reasons, official links, deadlines, and the fields that still need confirmation.
 5. **Guided application.** The dashboard shows the selected scheme's checklist and opens the guided application flow. DynamoDB is the planned store for session and checklist state. AWS Amplify hosts the frontend in the proposed deployment, with ECS running the API and Playwright worker.
 
+## Phase workflow
+
+Start catalog verification alongside the frontend foundation. Build the typed discovery and matching flow first so it can support the voice and browser demos.
+
+| Phase | Lead role | Work | Completion check |
+| --- | --- | --- | --- |
+| 1. Frontend foundation | Frontend | Resolve the missing landing-page imports and icon CSS build issue. Add the React student profile form, results view, and checklist view using sample data. | The landing page and dashboard render. Lint and the production build pass. A fictional profile reaches a sample result and checklist. |
+| 2. Verified scholarship catalog | Data | Curate NSP and Karnataka SSP schemes. Record official URLs, eligibility criteria, deadlines, required documents, and last-checked dates. Start with local fixtures and use the same record format for S3. | At least five schemes have complete, source-checked records for API integration. Reach the 10-scheme target before demo sign-off. |
+| 3. FastAPI and eligibility matching | Backend and frontend | Build catalog and matching endpoints, implement the Python eligibility rules, and connect the dashboard. Generate the checklist from the selected scheme record. | A typed profile returns source-linked results. The UI explains matched and failed criteria, flags missing information, and handles empty results and API errors. |
+| 4. Voice and browser guidance | Voice and browser integration | Use Gemini for request interpretation and explanations, and ElevenLabs for speech input and output. Add Playwright navigation to one supported public scheme page and guide the student through a demo form. | A Kannada voice request reaches the same matching flow as typed input. Explanations are available in Kannada, Hindi, and English. The browser demo stops at student review, and typed input works if voice is unavailable. |
+| 5. Integration and demo sign-off | QA and release | Test the demo with fictional profiles, rehearse the typed and curated-catalog fallbacks, and verify the demo environment. For hosted delivery, configure Amplify, ECS, S3, and DynamoDB, then smoke-test the hosted flow. | The team tests 10 profiles, confirms every result links to an official source, completes the shortlist and checklist flow in under five minutes, and verifies zero automatic submissions. |
+
+Before starting a phase, assign the lead and agree on its completion check. Open a pull request with the checks run and screenshots for visible changes. Have a teammate review it before merging. See the [team workflow and commit rules](architecture-workflow.md#day-to-day-workflow-and-commit-rules).
+
 ## Round 1 demo
 
 1. Open the dashboard and use a fictional Karnataka undergraduate profile to request scholarships in Kannada. Keep the typed request ready as a fallback.
