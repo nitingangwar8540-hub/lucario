@@ -30,15 +30,68 @@ Students must search across government portals, colleges, and private providers,
 
 Start catalog verification alongside the frontend foundation. Build the typed discovery and matching flow first so it can support the voice and browser demos.
 
-| Phase | Lead role | Work | Completion check |
-| --- | --- | --- | --- |
-| 1. Frontend foundation | Frontend | Resolve the missing landing-page imports and icon CSS build issue. Add the React student profile form, results view, and checklist view using sample data. | The landing page and dashboard render. Lint and the production build pass. A fictional profile reaches a sample result and checklist. |
-| 2. Verified scholarship catalog | Data | Curate NSP and Karnataka SSP schemes. Record official URLs, eligibility criteria, deadlines, required documents, and last-checked dates. Start with local fixtures and use the same record format for S3. | At least five schemes have complete, source-checked records for API integration. Reach the 10-scheme target before demo sign-off. |
-| 3. FastAPI and eligibility matching | Backend and frontend | Build catalog and matching endpoints, implement the Python eligibility rules, and connect the dashboard. Generate the checklist from the selected scheme record. | A typed profile returns source-linked results. The UI explains matched and failed criteria, flags missing information, and handles empty results and API errors. |
-| 4. Voice and browser guidance | Voice and browser integration | Use Gemini for request interpretation and explanations, and ElevenLabs for speech input and output. Add Playwright navigation to one supported public scheme page and guide the student through a demo form. | A Kannada voice request reaches the same matching flow as typed input. Explanations are available in Kannada, Hindi, and English. The browser demo stops at student review, and typed input works if voice is unavailable. |
-| 5. Integration and demo sign-off | QA and release | Test the demo with fictional profiles, rehearse the typed and curated-catalog fallbacks, and verify the demo environment. For hosted delivery, configure Amplify, ECS, S3, and DynamoDB, then smoke-test the hosted flow. | The team tests 10 profiles, confirms every result links to an official source, completes the shortlist and checklist flow in under five minutes, and verifies zero automatic submissions. |
+Assign a lead and agree on the completion check before starting each phase. Use draft pull requests for feedback, with check results and screenshots for visible changes. Keep phase branches open until final integration. Follow the [team commit conventions](architecture-workflow.md#day-to-day-workflow-and-commit-rules).
 
-Before starting a phase, assign the lead and agree on its completion check. Open a pull request with the checks run and screenshots for visible changes. Have a teammate review it before merging. See the [team workflow and commit rules](architecture-workflow.md#day-to-day-workflow-and-commit-rules).
+### Phase 1 — Frontend foundation
+
+**Lead** · Frontend
+
+**Stack requirements** · Node.js and npm, React, Vite, Tailwind CSS, PostCSS, and Oxlint. Install the existing dependencies with `npm ci` in `frontend/`.
+
+- [ ] Resolve the missing landing-page imports and the Tailwind icon stylesheet error.
+- [ ] Build the student profile form, scholarship results view, and document checklist view.
+- [ ] Connect the views with local fixtures so a fictional profile can complete the flow.
+- [ ] Run `npm run lint` and `npm run build`. Verify that the landing page and dashboard render.
+
+### Phase 2 — Verified scholarship catalog
+
+**Lead** · Data
+
+**Stack requirements** · Local JSON fixtures, official NSP and Karnataka SSP sources, and AWS S3 for the hosted catalog.
+
+- [ ] Define one record format with a scheme ID, official URL, eligibility criteria, deadline, required documents, and last-checked date.
+- [ ] Verify at least five records against their official sources and provide the fixtures to the frontend and API owners.
+- [ ] Expand to 10 verified schemes by demo sign-off. Use the same record format for the local fallback and hosted S3 catalog.
+
+### Phase 3 — FastAPI and eligibility matching
+
+**Leads** · Backend and frontend
+
+**Stack requirements** · Python, FastAPI, a Python rules engine, the Phase 2 catalog, and the React dashboard.
+
+- [ ] Implement catalog search and profile matching endpoints.
+- [ ] Evaluate each scheme's published criteria and return reasons for criteria that pass, fail, or need more information.
+- [ ] Connect the dashboard to the API and generate the checklist from the selected scheme record.
+- [ ] Verify that a typed profile receives source-linked results. Check missing inputs, empty results, and API errors in the UI.
+
+### Phase 4 — Voice and browser guidance
+
+**Leads** · Voice and browser integration
+
+**Stack requirements** · Gemini API, ElevenLabs speech-to-text and text-to-speech, Playwright with a supported browser installed, and the Phase 3 API. Configure API credentials on the backend.
+
+- [ ] Use Gemini to interpret requests and explain the Python rule results in Kannada, Hindi, and English.
+- [ ] Connect ElevenLabs input and output to the same flow as typed requests. Test a Kannada voice request and the typed fallback.
+- [ ] Use Playwright to open a supported public scheme page and demonstrate form guidance with fictional values on the demo form.
+- [ ] Verify that the browser demo stops at student review and that catalog records remain accessible when the portal is unavailable.
+
+### Phase 5 — Integration readiness and demo sign-off
+
+**Leads** · QA and release
+
+**Stack requirements** · React and FastAPI builds, Playwright, GitHub pull requests and checks, and fictional test profiles. Hosted delivery uses AWS Amplify for the frontend, ECS for the API and browser worker, S3 for scheme records, and DynamoDB for session and checklist state.
+
+- [ ] Test 10 fictional profiles, including matches, failed criteria, and missing information.
+- [ ] Confirm all recommendations link to official sources and measure the shortlist and checklist flow against the five-minute target.
+- [ ] Rehearse microphone and portal fallbacks and verify zero automatic submissions.
+- [ ] Verify the local demo environment. For hosted delivery, prepare the AWS resources and test the preview environment.
+
+### Final integration and merge
+
+- [ ] After all five phases pass their checks, combine the reviewed phase branches on a single integration branch. Bring in the frontend and catalog first, then matching, voice and browser guidance, and release changes.
+- [ ] Resolve conflicts on the integration branch and run the frontend lint and build, API and matching checks, and Playwright demo smoke check on the combined code.
+- [ ] Rehearse the full Round 1 demo on the combined build with a fictional profile. Open one final pull request into `main` with the check results and any known demo limitations.
+- [ ] Merge the final pull request after review and passing checks. Verify the demo from `main`, including a smoke check on the hosted build if used.
 
 ## Round 1 demo
 
