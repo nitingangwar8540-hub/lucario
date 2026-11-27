@@ -71,7 +71,7 @@ See the [catalog format and example](../data/catalog/README.md).
 
 #### 2.3 — Hand off and test the fixture
 
-- [ ] Share the fixture path and field definitions with the frontend and API owners in the catalog branch's draft pull request.
+- [x] Share the fixture path and field definitions in the [catalog draft pull request](https://github.com/nitingangwar8540-hub/lucario/pull/1).
 - [ ] Check that the dashboard displays a source link and document checklist once the frontend is ready.
 - [x] Verify the source and checklist data independently, and exercise eligibility rules with a fictional profile. Resolve any fixture field or type mismatches.
 
