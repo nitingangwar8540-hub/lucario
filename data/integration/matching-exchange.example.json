@@ -1,0 +1,115 @@
+{
+  "request": {
+    "query": "ಕರ್ನಾಟಕದ ಪದವಿ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ವಿದ್ಯಾರ್ಥಿವೇತನಗಳನ್ನು ಹುಡುಕಿ.",
+    "language": "kn",
+    "profile": {
+      "class12BoardStreamPercentile": 86,
+      "annualFamilyIncomeInr": 200000,
+      "receivesOtherScholarshipOrFeeReimbursement": false,
+      "category": "obc"
+    }
+  },
+  "response": {
+    "language": "kn",
+    "asOfDate": "2026-11-27",
+    "results": [
+      {
+        "schemeId": "nsp-pm-usp-csss",
+        "name": "PM-USP Central Sector Scholarship for College and University Students",
+        "portal": "nsp",
+        "officialUrl": "https://scholarships.gov.in/public/schemeGuidelines/FAQ_DOHE_CSSS.pdf",
+        "applicationCycle": "2026-27",
+        "deadline": "2026-11-30",
+        "lastCheckedDate": "2026-11-27",
+        "requiredDocuments": [
+          {
+            "name": "Class XII marksheet",
+            "condition": "Fresh application."
+          },
+          {
+            "name": "Family income certificate",
+            "condition": "Fresh application."
+          },
+          {
+            "name": "Category or caste certificate",
+            "condition": "Fresh application in a reserved category."
+          },
+          {
+            "name": "Disability certificate",
+            "condition": "Fresh application where applicable."
+          },
+          {
+            "name": "Previous-year marksheet",
+            "condition": "Renewal application."
+          }
+        ],
+        "status": "potential_match",
+        "criteria": [
+          {
+            "field": "class12BoardStreamPercentile",
+            "status": "pass",
+            "reason": "Fresh applicants must rank above the 80th percentile among successful Class XII candidates in their board and stream."
+          },
+          {
+            "field": "annualFamilyIncomeInr",
+            "status": "pass",
+            "reason": "The annual family income ceiling is ₹4.5 lakh."
+          },
+          {
+            "field": "receivesOtherScholarshipOrFeeReimbursement",
+            "status": "pass",
+            "reason": "Fresh applicants cannot receive another scholarship or fee reimbursement."
+          },
+          {
+            "status": "manual_review",
+            "reason": "For fresh applications, confirm first-year admission to a regular degree after completing Class XII in the previous academic year. Diploma and gap-year applicants are excluded."
+          }
+        ]
+      },
+      {
+        "schemeId": "nsp-pm-yasasvi-top-class-college",
+        "name": "PM YASASVI Top Class College Education for OBC, EBC and DNT Students",
+        "portal": "nsp",
+        "officialUrl": "https://scholarships.gov.in/public/schemeGuidelines/ApprovedmodifieddraftofTopClassCollege.pdf",
+        "applicationCycle": "2026-27",
+        "deadline": "2026-11-30",
+        "lastCheckedDate": "2026-11-27",
+        "requiredDocuments": [
+          {
+            "name": "Income certificate",
+            "condition": "Fresh application."
+          },
+          {
+            "name": "Caste or category certificate",
+            "condition": "Fresh application."
+          },
+          {
+            "name": "Sibling-benefit affidavit",
+            "condition": "Submit to the institution."
+          }
+        ],
+        "status": "potential_match",
+        "criteria": [
+          {
+            "field": "category",
+            "status": "pass",
+            "reason": "The college scheme covers OBC, EBC and DNT students."
+          },
+          {
+            "field": "annualFamilyIncomeInr",
+            "status": "pass",
+            "reason": "Total annual family income from all sources may be up to ₹2.5 lakh."
+          },
+          {
+            "status": "manual_review",
+            "reason": "Check full-time admission to an eligible course at an institution notified for this cycle, along with merit and available slots."
+          },
+          {
+            "status": "manual_review",
+            "reason": "At most two siblings in a family can receive this benefit."
+          }
+        ]
+      }
+    ]
+  }
+}

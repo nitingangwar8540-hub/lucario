@@ -45,13 +45,47 @@ Assign a lead and agree on the completion check before starting each phase. Use 
 
 ### Phase 2 — Verified scholarship catalog
 
+The [Phase 2 engineering handoff](phase-2-scholarship-catalog.md) documents the catalog files, the eligibility contract, and the commands used to validate the fixture.
+
 **Lead** · Data
 
 **Stack requirements** · Local JSON fixtures, official NSP and Karnataka SSP sources, and AWS S3 for the hosted catalog.
 
-- [ ] Define one record format with a scheme ID, official URL, eligibility criteria, deadline, required documents, and last-checked date.
-- [ ] Verify at least five records against their official sources and provide the fixtures to the frontend and API owners.
-- [ ] Expand to 10 verified schemes by demo sign-off. Use the same record format for the local fallback and hosted S3 catalog.
+Work on the `catalog` branch. After each subphase, record what changed, how you checked it, and what you learned.
+
+#### 2.1 — Define the catalog format
+
+- [x] Define a JSON record with a unique scheme ID, name, source portal, official URL, application cycle, deadline, eligibility criteria, required documents, and last-checked date.
+- [x] Document the proposed field names, types, date format, and unknown values. Store eligibility rules in fields the API can evaluate and retain source wording for exceptions.
+- [x] Add a fictional example and validate it independently against the schema. Review the contract with the frontend and API owners during the fixture handoff.
+
+See the [catalog format and example](../data/catalog/README.md).
+
+**What you learn.** A shared data format lets the dashboard and matching API use the same record. Keeping the deadline and last-checked date separate tells a student both when to apply and when the team verified the details.
+
+#### 2.2 — Verify the first five schemes
+
+- [x] Find at least five schemes across official NSP and Karnataka SSP sources.
+- [x] Check eligibility, required documents, and the deadline against the official scheme page or notice for the same application cycle. Record the link and verification date. Mark undisclosed values as unknown.
+- [x] Add the five records to the [local JSON catalog](../data/catalog/scholarships.json) and check that the file parses and every ID is unique.
+
+**What you learn.** Checking the application cycle prevents mixing last year's deadline with this year's rules. An explicit unknown value lets the dashboard flag a missing detail and direct the student to the official source.
+
+#### 2.3 — Hand off and test the fixture
+
+- [x] Share the fixture path and field definitions in the [catalog draft pull request](https://github.com/nitingangwar8540-hub/lucario/pull/1).
+- [x] Check that the dashboard displays a source link and document checklist once the frontend is ready.
+- [x] Verify the source and checklist data independently, and exercise eligibility rules with a fictional profile. Resolve any fixture field or type mismatches.
+
+**What you learn.** A handoff tests the format against how teammates actually use it. A case such as an income exactly at the published limit can reveal whether the rule needs an inclusive or exclusive comparison.
+
+#### 2.4 — Complete the demo catalog
+
+- [x] Expand to 10 source-checked schemes and repeat the format checks on the full fixture.
+- [x] Make the 10-record fixture available for demo testing in the [catalog draft pull request](https://github.com/nitingangwar8540-hub/lucario/pull/1).
+- [ ] If the demo uses S3, verify that the hosted copy and local fallback load with the same fields and value types.
+
+**What you learn.** Adding records tests whether the format covers differences across schemes. Keeping the hosted and local catalog shapes identical lets the matching flow use either source.
 
 ### Phase 3 — FastAPI and eligibility matching
 
@@ -59,21 +93,22 @@ Assign a lead and agree on the completion check before starting each phase. Use 
 
 **Stack requirements** · Python, FastAPI, a Python rules engine, the Phase 2 catalog, and the React dashboard.
 
-- [ ] Implement catalog search and profile matching endpoints.
-- [ ] Evaluate each scheme's published criteria and return reasons for criteria that pass, fail, or need more information.
-- [ ] Connect the dashboard to the API and generate the checklist from the selected scheme record.
+- [x] Implement catalog search and profile matching endpoints.
+- [x] Evaluate each scheme's published criteria and return reasons for criteria that pass, fail, or need more information.
+- [x] Connect the dashboard to the API and generate the checklist from the selected scheme record.
 - [ ] Verify that a typed profile receives source-linked results. Check missing inputs, empty results, and API errors in the UI.
 
 ### Phase 4 — Voice and browser guidance
+
+Develop this phase on `integration`. The engineering plan covers the shared request contract, voice, browser guidance, and end-to-end verification. [Phase 4 integration plan](phase-4-voice-playwright-integration.md)
 
 **Leads** · Voice and browser integration
 
 **Stack requirements** · Gemini API, ElevenLabs speech-to-text and text-to-speech, Playwright with a supported browser installed, and the Phase 3 API. Configure API credentials on the backend.
 
-- [ ] Use Gemini to interpret requests and explain the Python rule results in Kannada, Hindi, and English.
-- [ ] Connect ElevenLabs input and output to the same flow as typed requests. Test a Kannada voice request and the typed fallback.
-- [ ] Use Playwright to open a supported public scheme page and demonstrate form guidance with fictional values on the demo form.
-- [ ] Verify that the browser demo stops at student review and that catalog records remain accessible when the portal is unavailable.
+- [x] Define the matching exchange and prepare sample explanations in Kannada, Hindi, and English.
+- [x] Implement the standalone ElevenLabs adapter and verify it with mocked provider responses.
+- [x] Verify standalone Playwright navigation, catalog fallback, and fictional form review.
 
 ### Phase 5 — Integration readiness and demo sign-off
 
@@ -81,15 +116,18 @@ Assign a lead and agree on the completion check before starting each phase. Use 
 
 **Stack requirements** · React and FastAPI builds, Playwright, GitHub pull requests and checks, and fictional test profiles. Hosted delivery uses AWS Amplify for the frontend, ECS for the API and browser worker, S3 for scheme records, and DynamoDB for session and checklist state.
 
-- [ ] Test 10 fictional profiles, including matches, failed criteria, and missing information.
-- [ ] Confirm all recommendations link to official sources and measure the shortlist and checklist flow against the five-minute target.
-- [ ] Rehearse microphone and portal fallbacks and verify zero automatic submissions.
-- [ ] Verify the local demo environment. For hosted delivery, prepare the AWS resources and test the preview environment.
+- [x] Combine the reviewed frontend, backend, catalog, and standalone voice and browser work on `integration`.
+- [x] Connect voice and browser guidance to the matcher and dashboard and rehearse the Kannada flow using a simulated transcript.
+- [ ] Verify live ElevenLabs and Gemini behavior with eligible team members.
+- [x] Check Hindi and English explanations, typed fallback, denied microphone access, provider failures, missing profile inputs, and portal timeout. Verify that the source and checklist remain available as appropriate.
+- [x] Test 10 fictional profiles, including matches, failed criteria, and missing information.
+- [x] Confirm all recommendations link to official sources and measure the shortlist and checklist flow against the five-minute target.
+- [x] Rehearse microphone and portal fallbacks and verify zero automatic submissions.
+- [x] Verify the local demo environment. AWS preview verification applies to a hosted release.
 
 ### Final integration and merge
 
-- [ ] After all five phases pass their checks, combine the reviewed phase branches on a single integration branch. Bring in the frontend and catalog first, then matching, voice and browser guidance, and release changes.
-- [ ] Resolve conflicts on the integration branch and run the frontend lint and build, API and matching checks, and Playwright demo smoke check on the combined code.
+- [x] After combining the reviewed branches in Phase 5, resolve conflicts on `integration` and run the frontend lint and build, API and matching checks, and Playwright demo smoke check on the combined code.
 - [ ] Rehearse the full Round 1 demo on the combined build with a fictional profile. Open one final pull request into `main` with the check results and any known demo limitations.
 - [ ] Merge the final pull request after review and passing checks. Verify the demo from `main`, including a smoke check on the hosted build if used.
 
@@ -111,4 +149,4 @@ Use the curated catalog if a portal is unavailable. Show the last-checked date s
 
 ## Repository status
 
-The checkout contains a React/Vite landing-page scaffold. The student dashboard, FastAPI services, catalog, rules engine, voice integration, browser worker, and AWS deployment are planned prototype work. The hackathon architecture uses the stack from the wHACKiest 2026 submission deck. See the [frontend foundation and team workflow](architecture-workflow.md) for scaffold details and the earlier stack proposal.
+The integrated local prototype combines the dashboard, FastAPI matcher, catalog, voice adapters and browser worker. See the [Phase 5 demo runbook](phase-5-demo.md) for setup, verification results and outstanding live-provider checks.
