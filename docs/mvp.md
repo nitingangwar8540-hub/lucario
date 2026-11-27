@@ -45,6 +45,8 @@ Assign a lead and agree on the completion check before starting each phase. Use 
 
 ### Phase 2 — Verified scholarship catalog
 
+The [Phase 2 engineering handoff](phase-2-scholarship-catalog.md) documents the catalog files, the eligibility contract, and the commands used to validate the fixture.
+
 **Lead** · Data
 
 **Stack requirements** · Local JSON fixtures, official NSP and Karnataka SSP sources, and AWS S3 for the hosted catalog.
@@ -98,14 +100,15 @@ See the [catalog format and example](../data/catalog/README.md).
 
 ### Phase 4 — Voice and browser guidance
 
+Develop this phase on `integration`. The engineering plan covers the shared request contract, voice, browser guidance, and end-to-end verification. [Phase 4 integration plan](phase-4-voice-playwright-integration.md)
+
 **Leads** · Voice and browser integration
 
 **Stack requirements** · Gemini API, ElevenLabs speech-to-text and text-to-speech, Playwright with a supported browser installed, and the Phase 3 API. Configure API credentials on the backend.
 
-- [ ] Use Gemini to interpret requests and explain the Python rule results in Kannada, Hindi, and English.
-- [ ] Connect ElevenLabs input and output to the same flow as typed requests. Test a Kannada voice request and the typed fallback.
-- [ ] Use Playwright to open a supported public scheme page and demonstrate form guidance with fictional values on the demo form.
-- [ ] Verify that the browser demo stops at student review and that catalog records remain accessible when the portal is unavailable.
+- [x] Define the matching exchange and prepare sample explanations in Kannada, Hindi, and English.
+- [x] Implement the standalone ElevenLabs adapter and verify it with mocked provider responses.
+- [x] Verify standalone Playwright navigation, catalog fallback, and fictional form review.
 
 ### Phase 5 — Integration readiness and demo sign-off
 
@@ -113,6 +116,9 @@ See the [catalog format and example](../data/catalog/README.md).
 
 **Stack requirements** · React and FastAPI builds, Playwright, GitHub pull requests and checks, and fictional test profiles. Hosted delivery uses AWS Amplify for the frontend, ECS for the API and browser worker, S3 for scheme records, and DynamoDB for session and checklist state.
 
+- [ ] Combine the reviewed frontend, backend, catalog, and standalone voice and browser work on `integration`.
+- [ ] Complete the former Phase 4.4 work. Connect voice and browser guidance to the live matcher and dashboard, verify live ElevenLabs and Gemini behavior with the eligible team members, and rehearse the Kannada flow through application review.
+- [ ] Check Hindi and English explanations, typed fallback, denied microphone access, provider failures, missing profile inputs, and portal timeout. Verify that the source and checklist remain available as appropriate.
 - [ ] Test 10 fictional profiles, including matches, failed criteria, and missing information.
 - [ ] Confirm all recommendations link to official sources and measure the shortlist and checklist flow against the five-minute target.
 - [ ] Rehearse microphone and portal fallbacks and verify zero automatic submissions.
@@ -120,8 +126,7 @@ See the [catalog format and example](../data/catalog/README.md).
 
 ### Final integration and merge
 
-- [ ] After all five phases pass their checks, combine the reviewed phase branches on a single integration branch. Bring in the frontend and catalog first, then matching, voice and browser guidance, and release changes.
-- [ ] Resolve conflicts on the integration branch and run the frontend lint and build, API and matching checks, and Playwright demo smoke check on the combined code.
+- [ ] After combining the reviewed branches in Phase 5, resolve conflicts on `integration` and run the frontend lint and build, API and matching checks, and Playwright demo smoke check on the combined code.
 - [ ] Rehearse the full Round 1 demo on the combined build with a fictional profile. Open one final pull request into `main` with the check results and any known demo limitations.
 - [ ] Merge the final pull request after review and passing checks. Verify the demo from `main`, including a smoke check on the hosted build if used.
 

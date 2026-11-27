@@ -1,0 +1,264 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ScholarSaarthi matching exchange",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "request",
+    "response"
+  ],
+  "properties": {
+    "request": {
+      "$ref": "#/definitions/request"
+    },
+    "response": {
+      "$ref": "#/definitions/response"
+    }
+  },
+  "definitions": {
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "query",
+        "language",
+        "profile"
+      ],
+      "properties": {
+        "query": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "language": {
+          "enum": [
+            "kn",
+            "hi",
+            "en"
+          ]
+        },
+        "profile": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [],
+          "properties": {
+            "class12BoardStreamPercentile": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "annualFamilyIncomeInr": {
+              "type": "number",
+              "minimum": 0
+            },
+            "receivesOtherScholarshipOrFeeReimbursement": {
+              "type": "boolean"
+            },
+            "category": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]*$"
+            },
+            "nationality": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]*$"
+            },
+            "disabilityPercent": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "annualParentalIncomeInr": {
+              "type": "number",
+              "minimum": 0
+            },
+            "ageAtPgAdmission": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    "response": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "language",
+        "asOfDate",
+        "results"
+      ],
+      "properties": {
+        "language": {
+          "enum": [
+            "kn",
+            "hi",
+            "en"
+          ]
+        },
+        "asOfDate": {
+          "type": "string",
+          "format": "date",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/result"
+          }
+        }
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemeId",
+        "name",
+        "portal",
+        "officialUrl",
+        "applicationCycle",
+        "deadline",
+        "lastCheckedDate",
+        "requiredDocuments",
+        "status",
+        "criteria"
+      ],
+      "properties": {
+        "schemeId": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "portal": {
+          "enum": [
+            "nsp",
+            "karnataka-ssp"
+          ]
+        },
+        "officialUrl": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "applicationCycle": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "deadline": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "lastCheckedDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "requiredDocuments": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/document"
+          }
+        },
+        "status": {
+          "enum": [
+            "matched",
+            "potential_match",
+            "not_matched"
+          ]
+        },
+        "criteria": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/criterion"
+          }
+        }
+      }
+    },
+    "document": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "condition"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "condition": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      }
+    },
+    "criterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reason"
+      ],
+      "properties": {
+        "field": {
+          "type": "string",
+          "pattern": "^[a-z][A-Za-z0-9]*$"
+        },
+        "status": {
+          "enum": [
+            "pass",
+            "fail",
+            "missing_input",
+            "manual_review"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      },
+      "if": {
+        "properties": {
+          "status": {
+            "const": "manual_review"
+          }
+        }
+      },
+      "then": {
+        "not": {
+          "required": [
+            "field"
+          ]
+        }
+      },
+      "else": {
+        "required": [
+          "field"
+        ]
+      }
+    }
+  }
+}

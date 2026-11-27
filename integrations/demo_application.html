@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>ScholarSaarthi demo application</title>
+<main>
+  <h1>Demo application</h1>
+  <p>This walkthrough uses fictional information.</p>
+  <section aria-label="Application details">
+    <label for="scheme">Scholarship</label>
+    <input id="scheme" readonly>
+    <label for="applicant">Applicant name</label>
+    <input id="applicant">
+    <label for="income">Annual family income in rupees</label>
+    <input id="income" type="number">
+    <label for="documents">Document checklist</label>
+    <textarea id="documents" rows="8" cols="65" readonly></textarea>
+    <button id="review-button" type="button">Review application</button>
+  </section>
+  <section id="review" aria-labelledby="review-title" hidden>
+    <h2 id="review-title">Review fictional application</h2>
+    <dl>
+      <dt>Scholarship</dt><dd id="review-scheme"></dd>
+      <dt>Applicant</dt><dd id="review-applicant"></dd>
+      <dt>Annual family income</dt><dd id="review-income"></dd>
+    </dl>
+    <p>Document names are shown as placeholders.</p>
+    <pre id="review-documents"></pre>
+  </section>
+</main>
+<script>
+  document.getElementById("review-button").addEventListener("click", () => {
+    for (const id of ["scheme", "applicant", "income", "documents"]) {
+      document.getElementById("review-" + id).textContent = document.getElementById(id).value;
+    }
+    document.getElementById("review").hidden = false;
+  });
+</script>
+</html>
