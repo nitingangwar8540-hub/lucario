@@ -64,7 +64,8 @@
   }
 
   .form-field input,
-  .form-field select {
+  .form-field select,
+  .form-field textarea {
     @apply min-h-12 w-full rounded-xl border-outline-variant bg-white px-3 text-base font-normal text-on-surface focus:border-secondary focus:ring-secondary;
   }
 
@@ -111,76 +112,35 @@
 }
 
 .dashboard-background {
-  background: radial-gradient(ellipse at 14% 22%, #dcf5eb, transparent 42rem),
-    radial-gradient(ellipse at 91% 35%, #dfe8fc, transparent 47rem), #f7f9ff;
+  background: linear-gradient(155deg, #eaf3ef, #f7f9f6 42rem);
 }
 
 .glass-panel {
-  position: relative;
-  isolation: isolate;
   min-width: 0;
-  border: 1px solid #fff;
+  border: 1px solid #d9e4df;
   border-radius: 1.25rem;
-  background: linear-gradient(145deg, #fffffff2, #ffffff9c 75%, #eef8f5cc);
-  box-shadow: inset 0 1px 0 #fff, 0 0 0 1px #2a576112, 0 18px 32px -20px #24495a65,
-    0 24px 48px -29px #5069a267;
-  backdrop-filter: blur(14px) saturate(145%);
+  background: linear-gradient(150deg, #fff 55%, #f5faf7);
+  box-shadow: inset 0 1px #fff, 0 10px 28px -21px #1e493f80;
 }
 
-.glass-panel-bright {
-  box-shadow: inset 0 1px 0 #fff, 0 0 0 1px #32625e1a, 0 23px 44px -25px #27495988,
-    0 36px 60px -33px #407c755f;
+.card-wrap { display: grid; min-width: 0; }
+
+.dashboard-intro {
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+  border-radius: 1.25rem;
+  color: white;
+  background: radial-gradient(ellipse at top right, #386e60, transparent 64%), #163b35;
 }
 
-.glass-tilt {
-  display: grid;
-  min-width: 0;
-  perspective: 850px;
-}
-
-.glass-tilt-face::before {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  content: '';
-  opacity: 0;
-  background: radial-gradient(ellipse at var(--light-x, 50%) var(--light-y, 50%),
-    #c8f4e4d9, #dbeeff57 43%, transparent 76%);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .hero-background::before {
-    animation: ambient-drift 18s ease-in-out infinite alternate;
-  }
-}
+.dashboard-intro h1 { line-height: 1.1; }
+.dashboard-steps { background: #ffffffdf; border: 1px solid #d9e4df; }
+.dashboard-steps .step-button:disabled { border-color: transparent; color: #63716c; }
+.dashboard-steps .step-button[aria-current='step'] { background: #225846; color: white; }
+.form-field textarea { padding-block: .7rem; resize: vertical; }
+.dashboard-background summary { cursor: pointer; font-weight: 600; color: #285c48; }
+.dashboard-background button:disabled { cursor: default; }
 
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .glass-tilt-face {
-    transition: transform 180ms ease-out, box-shadow 240ms ease-out;
-  }
-
-  .glass-tilt-face::before {
-    transition: opacity 250ms ease-out;
-  }
-
-  .glass-tilt:hover {
-    z-index: 1;
-  }
-
-  .glass-tilt:hover .glass-tilt-face {
-    transform: translateY(-5px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
-    box-shadow: inset 0 1px 0 #fff, 0 0 0 1px #54a08a42, 0 22px 32px -18px #22575183,
-      0 34px 55px -29px #4e63a58c;
-  }
-
-  .glass-tilt:hover .glass-tilt-face::before {
-    opacity: 1;
-  }
-}
-
-@keyframes ambient-drift {
-  from { transform: translate3d(-2%, -1%, 0); }
-  to { transform: translate3d(3%, 2%, 0); }
+  .hover-card { transition: transform 150ms ease-out; }
+  .card-wrap:hover .hover-card { transform: translateY(-2px); }
 }

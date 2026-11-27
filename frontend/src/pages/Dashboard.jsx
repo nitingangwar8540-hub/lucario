@@ -11,11 +11,13 @@ const resultLabels = { pass: 'Matches checked criteria', needs_information: 'Pot
 const criterionLabels = { pass: 'Meets rule', unknown: 'Missing information', manual_review: 'Needs manual review', fail: 'Does not meet rule' }
 const statusColors = {
   pass: 'bg-[#e5f5eb] text-[#20533c]',
-  missing: 'bg-[#fff1d8] text-[#76500f]',
+  unknown: 'bg-[#fff1d8] text-[#76500f]',
+  needs_information: 'bg-[#fff1d8] text-[#76500f]',
+  manual_review: 'bg-[#fff1d8] text-[#76500f]',
   fail: 'bg-[#f2e9e8] text-[#783d36]',
 }
 
-function ProfileForm({ profile, setProfile, onMatch, busy, children }) {
+function ProfileForm({ profile, setProfile, onMatch, busy, loading, children }) {
   function update(field, event) {
     setProfile(current => ({ ...current, [field]: event.target.value }))
   }
@@ -73,7 +75,7 @@ function ProfileForm({ profile, setProfile, onMatch, busy, children }) {
       {children}
       <p className="mt-4 text-sm leading-relaxed text-on-surface-variant">Use fictional details. Leave any field blank to see which rules need more information.</p>
       <div className="mt-7 flex flex-wrap items-center gap-3">
-        <button className="button-primary" type="submit" disabled={busy}>Find scholarships</button>
+        <button className="button-primary" type="submit" disabled={busy}>{loading ? 'Finding scholarships…' : 'Find scholarships'}</button>
         <button className="button-secondary" type="button" onClick={() => setProfile({ ...sampleProfile })}>Use a sample profile</button>
       </div>
     </form>
@@ -106,14 +108,17 @@ function ScholarshipResults({ results, onOpenChecklist }) {
               <span className={`rounded-full px-3 py-1 text-xs font-semibold ${statusColors[scheme.status]}`}>{resultLabels[scheme.status]}</span>
             </div>
             <p className="mt-2 leading-relaxed text-on-surface-variant">{scheme.description}</p>
-            <ul className="my-4 divide-y divide-outline-variant/40 border-y border-outline-variant/40">
+            <details className="my-4 rounded-xl border border-outline-variant/50 px-4 py-3">
+              <summary>Eligibility criteria ({scheme.evaluations.length})</summary>
+              <ul className="mt-3 divide-y divide-outline-variant/40 border-y border-outline-variant/40">
               {scheme.evaluations.map(rule => (
                 <li key={rule.label} className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 py-2.5">
                   <span>{rule.label}</span>
                   <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${statusColors[rule.status]}`}>{criterionLabels[rule.status]}</span>
                 </li>
               ))}
-            </ul>
+              </ul>
+            </details>
             <div className="flex flex-wrap items-center justify-between gap-3">
               <p className="text-sm text-on-surface-variant">Catalog deadline <strong>{scheme.deadline}</strong></p>
               <a href={scheme.officialUrl} target="_blank" rel="noreferrer">Official source</a>
@@ -229,14 +234,14 @@ export default function Dashboard({ initialQuery }) {
 
   return (
     <div className="dashboard-background min-h-screen">
-      <header className="border-b border-white/80 bg-white/65 backdrop-blur-md">
+      <header className="border-b border-white/80 bg-white">
         <div className="page-width flex min-h-16 items-center justify-between gap-4 py-3">
           <a className="font-headline-md text-headline-md text-primary" href="#home">ScholarSaarthi</a>
           <a className="text-sm font-semibold text-secondary hover:underline" href="#home">Back to home</a>
         </div>
       </header>
       <main className="page-width grid gap-7 py-8 lg:grid-cols-[230px_minmax(0,1fr)] lg:gap-12 lg:py-12">
-        <nav aria-label="Dashboard steps" className="self-start lg:sticky lg:top-6">
+        <nav aria-label="Dashboard steps" className="dashboard-steps self-start rounded-2xl p-2 lg:sticky lg:top-6">
           <ol className="grid gap-2 sm:grid-cols-3 lg:grid-cols-1">
             {steps.map((label, index) => (
               <li key={label}>
@@ -249,10 +254,12 @@ export default function Dashboard({ initialQuery }) {
           </ol>
         </nav>
         <div className="min-w-0">
-          <p className="mb-2 text-sm font-semibold text-secondary">Student dashboard</p>
-          <h1 ref={heading} tabIndex={-1} className="font-display-lg text-display-lg-mobile text-primary outline-none sm:text-display-lg">{steps[step]}</h1>
-          {step === 0 && <p className="mt-2 max-w-xl leading-relaxed text-on-surface-variant">Enter a few details to see how scholarship criteria apply to your profile.</p>}
-          {step === 0 && <ProfileForm profile={profile} setProfile={setProfile} onMatch={findMatches} busy={loading || recording}>
+          <div className="dashboard-intro">
+            <p className="mb-2 text-sm font-semibold text-emerald-100">Student dashboard · Step {step + 1} of {steps.length}</p>
+          <h1 ref={heading} tabIndex={-1} className="font-display-lg text-display-lg-mobile text-white outline-none sm:text-display-lg">{steps[step]}</h1>
+          {step === 0 && <p className="mt-2 max-w-xl leading-relaxed text-emerald-50">Enter a few details to see how scholarship criteria apply to your profile.</p>}
+          </div>
+          {step === 0 && <ProfileForm profile={profile} setProfile={setProfile} onMatch={findMatches} busy={loading || recording} loading={loading}>
             <RequestInput {...{ query, setQuery, language, setLanguage }} onBusy={setRecording} />
             {error && <p role="alert">{error}</p>}
           </ProfileForm>}
