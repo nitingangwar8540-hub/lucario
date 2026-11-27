@@ -45,6 +45,8 @@ Assign a lead and agree on the completion check before starting each phase. Use 
 
 ### Phase 2 — Verified scholarship catalog
 
+The [Phase 2 engineering handoff](phase-2-scholarship-catalog.md) documents the catalog files, the eligibility contract, and the commands used to validate the fixture.
+
 **Lead** · Data
 
 **Stack requirements** · Local JSON fixtures, official NSP and Karnataka SSP sources, and AWS S3 for the hosted catalog.
