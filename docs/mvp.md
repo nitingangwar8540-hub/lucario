@@ -79,8 +79,9 @@ See the [catalog format and example](../data/catalog/README.md).
 
 #### 2.4 — Complete the demo catalog
 
-- [ ] Expand to 10 verified schemes and repeat the source and format checks on every added record.
-- [ ] Make the 10-record fixture available for demo testing. For hosted delivery, verify that the S3 copy and the local fallback load with the same fields and value types.
+- [x] Expand to 10 source-checked schemes and repeat the format checks on the full fixture.
+- [x] Make the 10-record fixture available for demo testing in the [catalog draft pull request](https://github.com/nitingangwar8540-hub/lucario/pull/1).
+- [ ] If the demo uses S3, verify that the hosted copy and local fallback load with the same fields and value types.
 
 **What you learn.** Adding records tests whether the format covers differences across schemes. Keeping the hosted and local catalog shapes identical lets the matching flow use either source.
 

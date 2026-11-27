@@ -97,5 +97,255 @@
       { "name": "Defence service certificate signed by the competent authority", "condition": null }
     ],
     "lastCheckedDate": "2026-11-27"
+  },
+  {
+    "id": "nsp-aicte-pragati-degree",
+    "name": "AICTE Pragati Scholarship for Girl Students (Technical Degree)",
+    "portal": "nsp",
+    "officialUrl": "https://scholarships.gov.in/public/schemeGuidelines/AICTE/AICTE_2010_G.pdf",
+    "applicationCycle": "2026-27",
+    "deadline": "2026-11-30",
+    "eligibilityCriteria": [
+      {
+        "field": "annualFamilyIncomeInr",
+        "operator": "lte",
+        "value": 800000,
+        "sourceText": "Annual family income from all sources may be up to ₹8 lakh."
+      },
+      {
+        "operator": "manual",
+        "sourceText": "Confirm the applicant meets the scheme's girl-student eligibility, the limit of two girls per family, and admission to year one or lateral entry into year two of an AICTE-approved technical degree."
+      },
+      {
+        "operator": "manual",
+        "sourceText": "Check the AICTE restrictions on other scholarships and dual degree programmes."
+      }
+    ],
+    "requiredDocuments": [
+      {
+        "name": "Class X certificate and marksheet",
+        "condition": "Fresh application."
+      },
+      {
+        "name": "Class XII certificate and marksheet",
+        "condition": "Fresh degree application."
+      },
+      {
+        "name": "Diploma certificate and marksheet",
+        "condition": "Fresh degree application through lateral entry."
+      },
+      {
+        "name": "Category certificate",
+        "condition": "If applicable."
+      },
+      {
+        "name": "Institution study or bona fide certificate",
+        "condition": null
+      },
+      {
+        "name": "Annual family income certificate",
+        "condition": "Fresh application."
+      },
+      {
+        "name": "Promotion certificate",
+        "condition": "Renewal application."
+      },
+      {
+        "name": "Parent declaration",
+        "condition": "Fresh application."
+      }
+    ],
+    "lastCheckedDate": "2026-11-27"
+  },
+  {
+    "id": "nsp-aicte-saksham-degree",
+    "name": "AICTE Saksham Scholarship for Students with Disabilities (Technical Degree)",
+    "portal": "nsp",
+    "officialUrl": "https://scholarships.gov.in/public/schemeGuidelines/AICTE/AICTE_2012_G.pdf",
+    "applicationCycle": "2026-27",
+    "deadline": "2026-11-30",
+    "eligibilityCriteria": [
+      {
+        "field": "annualFamilyIncomeInr",
+        "operator": "lte",
+        "value": 800000,
+        "sourceText": "Annual family income from all sources may be up to ₹8 lakh."
+      },
+      {
+        "field": "disabilityPercent",
+        "operator": "gte",
+        "value": 40,
+        "sourceText": "The applicant must have a disability of 40% or more."
+      },
+      {
+        "operator": "manual",
+        "sourceText": "Confirm admission to year one or lateral entry into year two of an AICTE-approved technical degree and check the restrictions on other scholarships."
+      }
+    ],
+    "requiredDocuments": [
+      {
+        "name": "Class X certificate and marksheet",
+        "condition": "Fresh application."
+      },
+      {
+        "name": "Class XII certificate and marksheet",
+        "condition": "Fresh degree application."
+      },
+      {
+        "name": "Diploma certificate and marksheet",
+        "condition": "Fresh degree application through lateral entry."
+      },
+      {
+        "name": "Category certificate",
+        "condition": "If applicable."
+      },
+      {
+        "name": "Institution study or bona fide certificate",
+        "condition": null
+      },
+      {
+        "name": "Annual family income certificate",
+        "condition": "Fresh application."
+      },
+      {
+        "name": "Promotion certificate",
+        "condition": "Renewal application."
+      }
+    ],
+    "lastCheckedDate": "2026-11-27"
+  },
+  {
+    "id": "nsp-aicte-swanath-degree",
+    "name": "AICTE Swanath Scholarship (Technical Degree)",
+    "portal": "nsp",
+    "officialUrl": "https://scholarships.gov.in/public/schemeGuidelines/AICTE/AICTE_3039_G.pdf",
+    "applicationCycle": "2026-27",
+    "deadline": "2026-11-30",
+    "eligibilityCriteria": [
+      {
+        "field": "annualFamilyIncomeInr",
+        "operator": "lte",
+        "value": 800000,
+        "sourceText": "Annual family income from all sources may be up to ₹8 lakh under the general eligibility rule."
+      },
+      {
+        "operator": "manual",
+        "sourceText": "Check that the student is in years one through four of a regular AICTE-approved technical degree and qualifies under one of the family circumstances in section 2."
+      },
+      {
+        "operator": "manual",
+        "sourceText": "Check the restrictions on other financial assistance. Confirm the income limit with AICTE if income equals ₹8 lakh because some document instructions specify a stricter threshold."
+      }
+    ],
+    "requiredDocuments": [
+      {
+        "name": "Institution bona fide certificate",
+        "condition": null
+      },
+      {
+        "name": "Class X and Class XII or equivalent marksheets",
+        "condition": "Fresh degree application."
+      },
+      {
+        "name": "Proof of qualifying family circumstances",
+        "condition": "Use the documents for the applicable category in the AICTE guidelines."
+      },
+      {
+        "name": "Current annual family income certificate",
+        "condition": "Where required for the applicant's category."
+      },
+      {
+        "name": "Category certificate",
+        "condition": "If applicable."
+      },
+      {
+        "name": "Promotion certificate",
+        "condition": "Renewal application."
+      }
+    ],
+    "lastCheckedDate": "2026-11-27"
+  },
+  {
+    "id": "nsp-ugc-national-pg",
+    "name": "UGC National Scholarship for Post Graduate Studies",
+    "portal": "nsp",
+    "officialUrl": "https://scholarships.gov.in/public/schemeGuidelines/Guidelines_NATIONAL_SCHOLARSHIP_FOR_POSTGRADUATE_STUDIES_UGC_2324.pdf",
+    "applicationCycle": "2026-27",
+    "deadline": "2026-11-30",
+    "eligibilityCriteria": [
+      {
+        "field": "nationality",
+        "operator": "eq",
+        "value": "indian",
+        "sourceText": "The scholarship is for Indian students."
+      },
+      {
+        "field": "ageAtPgAdmission",
+        "operator": "lt",
+        "value": 30,
+        "sourceText": "Applicants must be under 30 on admission to the first year or semester of the postgraduate programme."
+      },
+      {
+        "operator": "manual",
+        "sourceText": "Confirm first-year admission to the applicant's first recognized postgraduate degree through regular full-time study at an eligible institution. For integrated degrees, only the postgraduate component qualifies."
+      }
+    ],
+    "requiredDocuments": null,
+    "lastCheckedDate": "2026-11-27"
+  },
+  {
+    "id": "nsp-tribal-affairs-top-class-st",
+    "name": "National Scholarship for Higher Education of ST Students (Top Class)",
+    "portal": "nsp",
+    "officialUrl": "https://scholarships.gov.in/public/schemeGuidelines/tribalfellowshipguideline.pdf",
+    "applicationCycle": "2026-27",
+    "deadline": "2026-11-30",
+    "eligibilityCriteria": [
+      {
+        "field": "category",
+        "operator": "eq",
+        "value": "st",
+        "sourceText": "The scholarship component covers Scheduled Tribe students."
+      },
+      {
+        "operator": "manual",
+        "sourceText": "Confirm merit admission to an eligible graduate or postgraduate course at a notified institution. Private management-quota admissions are excluded."
+      },
+      {
+        "operator": "manual",
+        "sourceText": "Check the ₹6 lakh annual income ceiling using the scheme's family income definition, including its exemption for an orphan supported by a guardian."
+      },
+      {
+        "operator": "manual",
+        "sourceText": "Check for other central or state scholarships for the same course of study."
+      }
+    ],
+    "requiredDocuments": [
+      {
+        "name": "ST or PVTG certificate",
+        "condition": "Fresh application."
+      },
+      {
+        "name": "Applicable income certificate",
+        "condition": "Fresh application where the income criterion applies."
+      },
+      {
+        "name": "Fee receipt",
+        "condition": null
+      },
+      {
+        "name": "Copy of bank passbook",
+        "condition": null
+      },
+      {
+        "name": "Qualifying examination or latest passing-semester marksheet",
+        "condition": "Use the marksheet for the applicable course and application type."
+      },
+      {
+        "name": "Institution bona fide certificate",
+        "condition": null
+      }
+    ],
+    "lastCheckedDate": "2026-11-27"
   }
 ]
