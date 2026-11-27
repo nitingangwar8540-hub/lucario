@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ScholarSaarthi scholarship catalog",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "id", "name", "portal", "officialUrl", "applicationCycle",
+      "deadline", "eligibilityCriteria", "requiredDocuments", "lastCheckedDate"
+    ],
+    "properties": {
+      "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+      "name": { "$ref": "#/definitions/nonemptyString" },
+      "portal": { "enum": ["nsp", "karnataka-ssp"] },
+      "officialUrl": { "type": "string", "format": "uri", "pattern": "^https://" },
+      "applicationCycle": { "type": ["string", "null"], "minLength": 1 },
+      "deadline": { "$ref": "#/definitions/nullableDate" },
+      "eligibilityCriteria": {
+        "type": "array",
+        "minItems": 1,
+        "items": { "$ref": "#/definitions/criterion" }
+      },
+      "requiredDocuments": {
+        "type": ["array", "null"],
+        "items": { "$ref": "#/definitions/document" }
+      },
+      "lastCheckedDate": { "$ref": "#/definitions/nullableDate" }
+    }
+  },
+  "definitions": {
+    "nonemptyString": { "type": "string", "minLength": 1 },
+    "nullableDate": {
+      "type": ["string", "null"],
+      "format": "date",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "criterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["operator", "sourceText"],
+      "properties": {
+        "field": { "type": "string", "pattern": "^[a-z][A-Za-z0-9]*$" },
+        "operator": { "enum": ["eq", "in", "lt", "lte", "gt", "gte", "manual"] },
+        "value": {},
+        "sourceText": { "$ref": "#/definitions/nonemptyString" }
+      },
+      "oneOf": [
+        {
+          "required": ["field", "value"],
+          "properties": {
+            "operator": { "const": "eq" },
+            "value": { "type": ["string", "number", "boolean"] }
+          }
+        },
+        {
+          "required": ["field", "value"],
+          "properties": {
+            "operator": { "const": "in" },
+            "value": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "$ref": "#/definitions/nonemptyString" }
+            }
+          }
+        },
+        {
+          "required": ["field", "value"],
+          "properties": {
+            "operator": { "enum": ["lt", "lte", "gt", "gte"] },
+            "value": { "type": "number" }
+          }
+        },
+        {
+          "properties": { "operator": { "const": "manual" } },
+          "not": { "anyOf": [{ "required": ["field"] }, { "required": ["value"] }] }
+        }
+      ]
+    },
+    "document": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "condition"],
+      "properties": {
+        "name": { "$ref": "#/definitions/nonemptyString" },
+        "condition": { "type": ["string", "null"], "minLength": 1 }
+      }
+    }
+  }
+}

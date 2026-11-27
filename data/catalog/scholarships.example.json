@@ -1,0 +1,33 @@
+[
+  {
+    "id": "nsp-example-undergraduate",
+    "name": "Fictional Undergraduate Scholarship",
+    "portal": "nsp",
+    "officialUrl": "https://example.invalid/scholarships/undergraduate",
+    "applicationCycle": "2026–27",
+    "deadline": null,
+    "eligibilityCriteria": [
+      {
+        "field": "annualFamilyIncomeInr",
+        "operator": "lte",
+        "value": 250000,
+        "sourceText": "Example rule. Annual family income must be ₹250,000 or less."
+      },
+      {
+        "field": "studyLevel",
+        "operator": "eq",
+        "value": "undergraduate",
+        "sourceText": "Example rule. The student must be enrolled in an undergraduate course."
+      },
+      {
+        "operator": "manual",
+        "sourceText": "Example rule. Confirm that the course appears on the approved list."
+      }
+    ],
+    "requiredDocuments": [
+      { "name": "Proof of enrollment", "condition": null },
+      { "name": "Hostel certificate", "condition": "For students applying as hostel residents." }
+    ],
+    "lastCheckedDate": null
+  }
+]

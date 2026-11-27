@@ -49,9 +49,40 @@ Assign a lead and agree on the completion check before starting each phase. Use 
 
 **Stack requirements** · Local JSON fixtures, official NSP and Karnataka SSP sources, and AWS S3 for the hosted catalog.
 
-- [ ] Define one record format with a scheme ID, official URL, eligibility criteria, deadline, required documents, and last-checked date.
-- [ ] Verify at least five records against their official sources and provide the fixtures to the frontend and API owners.
-- [ ] Expand to 10 verified schemes by demo sign-off. Use the same record format for the local fallback and hosted S3 catalog.
+Work on the `catalog` branch. After each subphase, record what changed, how you checked it, and what you learned.
+
+#### 2.1 — Define the catalog format
+
+- [x] Define a JSON record with a unique scheme ID, name, source portal, official URL, application cycle, deadline, eligibility criteria, required documents, and last-checked date.
+- [x] Document the proposed field names, types, date format, and unknown values. Store eligibility rules in fields the API can evaluate and retain source wording for exceptions.
+- [x] Add a fictional example and validate it independently against the schema. Review the contract with the frontend and API owners during the fixture handoff.
+
+See the [catalog format and example](../data/catalog/README.md).
+
+**What you learn.** A shared data format lets the dashboard and matching API use the same record. Keeping the deadline and last-checked date separate tells a student both when to apply and when the team verified the details.
+
+#### 2.2 — Verify the first five schemes
+
+- [x] Find at least five schemes across official NSP and Karnataka SSP sources.
+- [x] Check eligibility, required documents, and the deadline against the official scheme page or notice for the same application cycle. Record the link and verification date. Mark undisclosed values as unknown.
+- [x] Add the five records to the [local JSON catalog](../data/catalog/scholarships.json) and check that the file parses and every ID is unique.
+
+**What you learn.** Checking the application cycle prevents mixing last year's deadline with this year's rules. An explicit unknown value lets the dashboard flag a missing detail and direct the student to the official source.
+
+#### 2.3 — Hand off and test the fixture
+
+- [ ] Share the fixture path and field definitions with the frontend and API owners in the catalog branch's draft pull request.
+- [ ] Check that the dashboard displays a source link and document checklist once the frontend is ready.
+- [x] Verify the source and checklist data independently, and exercise eligibility rules with a fictional profile. Resolve any fixture field or type mismatches.
+
+**What you learn.** A handoff tests the format against how teammates actually use it. A case such as an income exactly at the published limit can reveal whether the rule needs an inclusive or exclusive comparison.
+
+#### 2.4 — Complete the demo catalog
+
+- [ ] Expand to 10 verified schemes and repeat the source and format checks on every added record.
+- [ ] Make the 10-record fixture available for demo testing. For hosted delivery, verify that the S3 copy and the local fallback load with the same fields and value types.
+
+**What you learn.** Adding records tests whether the format covers differences across schemes. Keeping the hosted and local catalog shapes identical lets the matching flow use either source.
 
 ### Phase 3 — FastAPI and eligibility matching
 
